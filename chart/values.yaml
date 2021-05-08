@@ -1,0 +1,36 @@
+rediscartsvc:
+  name: redis-cart
+  ports:
+    redis: 6379
+  targetPorts:
+    redis: 6379
+  selector:
+    app: redis-cart
+
+rediscartapp:
+  name: redis-cart
+  labels: 
+    app: redis-cart
+  containers: 
+    name: redis 
+    image: redis:alpine
+    ports:
+      containerPort: 6379
+    readinessProbe:
+      periodSeconds: 5
+      tcpSocket:
+        port: 6379
+    livenessProbe:
+      periodSeconds: 5
+      tcpSocket:
+        port: 6379
+    volumeMounts:
+      mountPath: /data
+      name: redis-data
+    resources:
+      requests:
+        cpu: 70m
+        memory: 200Mi
+      limits:
+        cpu: 125m
+        memory: 256Mi

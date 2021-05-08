@@ -1,0 +1,39 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.rediscartapp.name }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Values.rediscartapp.labels.app }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.rediscartapp.labels.app }}
+    spec:
+      containers:
+      - name: {{ .Values.rediscartapp.containers.name }}
+        image: {{ .Values.rediscartapp.containers.image }}
+        ports:
+        - containerPort: {{ .Values.rediscartapp.containers.ports.containerPort }}
+        readinessProbe:
+          periodSeconds: {{ .Values.rediscartapp.containers.readinessProbe.periodSeconds }}
+          tcpSocket:
+            port: {{ .Values.rediscartapp.containers.readinessProbe.tcpSocket.port }}
+        livenessProbe:
+          periodSeconds: {{ .Values.rediscartapp.containers.livenessProbe.periodSeconds }}
+          tcpSocket:
+            port: {{ .Values.rediscartapp.containers.livenessProbe.tcpSocket.port }}
+        volumeMounts:
+        - mountPath: {{ .Values.rediscartapp.containers.volumeMounts.mountPath | quote }}
+          name: {{ .Values.rediscartapp.containers.volumeMounts.name }}
+        resources:
+          limits:
+            memory: {{ .Values.rediscartapp.containers.resources.limits.memory }}
+            cpu: {{ .Values.rediscartapp.containers.resources.limits.cpu }}
+          requests:
+            cpu: {{ .Values.rediscartapp.containers.resources.requests.cpu }}
+            memory: {{ .Values.rediscartapp.containers.resources.requests.memory }}
+      volumes:
+      - name: redis-data
+        emptyDir: {}
