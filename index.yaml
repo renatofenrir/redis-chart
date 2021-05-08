@@ -1,3 +1,14 @@
 apiVersion: v1
-entries: {}
-generated: "2021-05-08T17:55:55.91879011+02:00"
+entries:
+  redis-cart:
+  - apiVersion: v2
+    appVersion: v0.2.0
+    created: "2021-05-08T22:49:45.175497861+02:00"
+    description: A Helm chart for redis-cart service
+    digest: 74d7c6a2523fee3593070b51134887b840d338c1627b5b94369bd59197924ebe
+    name: redis-cart
+    type: application
+    urls:
+    - redis-cart-0.1.0.tgz
+    version: 0.1.0
+generated: "2021-05-08T22:49:45.174938478+02:00"
